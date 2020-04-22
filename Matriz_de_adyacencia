@@ -1,0 +1,58 @@
+adjacencyList = {1: {1}, 2: {2, 3}, 3: {2, 3}}
+
+class AdjacencyMatrix():
+
+       def __init__(self, adjacencyList, label = ""):
+           
+# Método de instanciación de la clase.
+#Cree una matriz de adyacencia a partir de una lista de adyacencia.
+#Los vértices del gráfico están etiquetados con números del 1 a n...
+
+           self.matrix = []
+           self.label = label
+
+           #Crea una matriz vacia
+           for i in range(len(adjacencyList.keys())):
+               self.matrix.append( [0]*(len(adjacencyList.keys())) )
+
+           for key in adjacencyList.keys():
+               for value in adjacencyList[key]:
+                   self[key-1][value-1] = 1
+
+       def __str__(self):
+           
+           #Primera linea
+           string = self.label + "\t"
+           for i in range(len(self.matrix)):
+               string += str(i+1) + "\t"
+           string += "\n"
+
+           #Linea matricial:
+           for row in range(len(self.matrix)):
+               string += str(row+1) + "\t"
+               for column in range(len(self.matrix)):
+                   string += str(self[row][column]) + "\t"
+               string += "\n"
+
+           return string
+
+       def __repr__(self):
+           return str(self.matrix)
+
+       def __getitem__(self, index):
+
+#Permitir acceder al elemento de matriz utilizando la sintaxis de matriz [índice] [índice]
+           return self.matrix.__getitem__(index)
+
+       def __setitem__(self, index, item):
+#Permitir establecer el elemento de matriz usando matriz [índice] [índice] = sintaxis de valor
+           return self.matrix.__setitem__(index, item)
+
+       def areAdjacent(self, i, j):
+           return self[i-1][j-1] == 1
+
+m = AdjacencyMatrix(adjacencyList, label="RTA")
+print(m)
+print("")
+print("m.areAdjacent(1,2) :",m.areAdjacent(1,2))
+print("m.areAdjacent(2,3) :",m.areAdjacent(2,3))
