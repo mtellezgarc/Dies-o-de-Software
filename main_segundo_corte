@@ -1,98 +1,24 @@
+import turtle
 
-from __future__ import print_function
-#Segundo corte
-#1 Pasar el siguiente algoritmo a payton.
+def arbol(longitudRama,t):
+    if longitudRama > 5:
+        t.forward(longitudRama)
+        t.right(20)
+        arbol(longitudRama-15,t)
+        t.left(40)
+        arbol(longitudRama-15,t)
+        t.right(20)
+        t.backward(longitudRama)
 
-#Array monedas disponibles
-arrayMonedas=[50,25,11,5,1]
-#Valor a cambiar. en este caso 100 pesos.
-p=100 
-#Variable para sumar las monedas.
-total=0 
-valor=0  
-def num(arrayMonedas,p,arrayCambio=[]):
-    global total,valor
-    while total<p and len(arrayMonedas) != 0:
-       valor=arrayMonedas[0]
-       if(total+valor)<= p:
-            arrayCambio.append(valor)
-            total=total+valor
-       else:
-           del arrayMonedas[0]
-   
-    if(total < p):
-        arrayCambio.clear()
-        print("no tiene solucion")
-   #Devuelve el cambio del mÍnimo de monedas.
-    return arrayCambio 
-print("El cambio es:")
-#Imprime el valor del cambio, aqui se imprime la función de una vez con los parámetros, el imprime lo que devuelve la funcion "return".
-print(num(arrayMonedas,p))
-print()
-print()
-print("Resultado del grafo")
+def main():
+    t = turtle.Turtle()
+    miVentana = turtle.Screen()
+    t.left(90)
+    t.up()
+    t.backward(100)
+    t.down()
+    t.color("green")
+    arbol(75,t)
+    miVentana.exitonclick()
 
-#2 Implementación de grafos en payton
-#Se importa nuevas caracteristicas de print
-#Se importa nuevas caracteristicas de print
-#Se crea la clace vertice que solo tiene como argumento su nombre.
-class Vertice(object):
- def __init__(self, n):
-  self.nombre = n
-
-#Se crea la clase grafo con vertices e indices de bordes como diccionarios y bordes como una lista.
-class Grafo(object):
- vertices = {}
- bordes = []
- indices_bordes = {}
- def agregarVertice(self,vertice):
-   
-#Si vertice es una instancia de su clase y su nombre no esta en el diccionario de vertices se agrega.
-  if isinstance(vertice, Vertice) and vertice.nombre not in self.vertices:
-   self.vertices[vertice.nombre] = vertice
-
-#Se recorre los bordes y se agregan.
-   for fila in self.bordes:
-    fila.append(0)
-   self.bordes.append([0] * (len(self.bordes)+1))
-   self.indices_bordes[vertice.nombre] = len(self.indices_bordes)
-   return True
-  else:
-   return False
- def agregarBorde(self,u,v, peso=1):
-
-#Se agrega el borde.
-  if u in self.vertices and v in self.vertices:
-   self.bordes[self.indices_bordes[u]][self.indices_bordes[v]] = peso
-   self.bordes[self.indices_bordes[v]][self.indices_bordes[u]] = peso
-   return True
-  else:
-   return False
- def printGrafo(self):
-
-#Se muestra el grafo
-  for v, i in sorted(self.indices_bordes.items()):
-   print(v + ' ', end='')
-   for j in range(len(self.bordes)):
-    print(self.bordes[i][j], end='')
-   print(' ')    
-if __name__ == '__main__':
-
- g = Grafo()
- cinco = Vertice('5')
- tres = Vertice('3')
- cuatro = Vertice('4')
- uno = Vertice('1')
- dos = Vertice('2')
-
- for i in range(ord('1'), ord('6')):
-  g.agregarVertice(Vertice(chr(i)))
- bordes = ['53','54','31','35','41','42','45','12','13','14','21','24']
- for borde in bordes:
-  g.agregarBorde(borde[:1],borde[1:])
- g.printGrafo()
- #respuesta
-#1 01110
-#2 10010
-#3 10001
-#5 00110 
+main()
