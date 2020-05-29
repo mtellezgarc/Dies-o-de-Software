@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="wxd" width="256" height="256" style="border:2px solid black;background-color: rgb(255, 176, 30);" ></canvas>
+    <span style="color:red;color:red"></span>
+    </canvas><br>
+    <button onclick="fractalC(-250, 0, 250,256)" style="background-color: dodgerblue;color:white;border: none; height: 50px;width: 150px;cursor: pointer;">Generar Fractal</button>
+</body>
+</html>
+<script>
+    var t=0;
+function fractalC(x,y,w,h){
+    var c = document.getElementById("wxd");
+    var cwxd = c.getContext("2d");
+    var w = w/3;
+    var h = h/3;
+    if ((w>1)&&(h>1)){
+        var desp = Array(-2, 1, 4);
+        for (var i=0; i<desp.length; i++){
+            var xd = x + desp[i] * w;
+            for (var j=0; j<desp.length; j++){
+                if (!((i==1)&&(j==1))){
+                    var yd = y + desp[j] * h;
+                    cwxd.fillRect(xd,yd,w,h);
+                    fractalC(xd,yd,w,h);     
+                 
+            }
+        }
+    }
+}
+
+}
+</script>
